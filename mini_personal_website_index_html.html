@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Mini personal project website for GitHub repository upload." />
+  <title>Pranab | Personal Website</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #111827;
+      --card: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #60a5fa;
+      --accent-2: #34d399;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+      --radius: 24px;
+      --max: 1100px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(96, 165, 250, 0.18), transparent 30%),
+        radial-gradient(circle at right, rgba(52, 211, 153, 0.15), transparent 25%),
+        linear-gradient(180deg, #020617, var(--bg));
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(14px);
+      background: rgba(2, 6, 23, 0.6);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+      gap: 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .logo-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #08111f;
+      font-weight: 800;
+      box-shadow: var(--shadow);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--muted);
+      font-size: 0.95rem;
+      transition: 0.2s ease;
+    }
+    nav a:hover { color: var(--text); }
+
+    .hero {
+      padding: 88px 0 36px;
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      line-height: 0.95;
+      margin: 0 0 18px;
+      letter-spacing: -1.5px;
+    }
+
+    .hero p {
+      margin: 0 0 24px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 62ch;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: 0.2s ease;
+      box-shadow: var(--shadow);
+    }
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #06101f;
+    }
+    .btn.secondary {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,255,255,0.12);
+      color: var(--text);
+    }
+    .btn:hover { transform: translateY(-2px); }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .stat-card, .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .stat-card {
+      padding: 18px;
+    }
+    .stat-card strong {
+      display: block;
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+    }
+    .stat-card span { color: var(--muted); font-size: 0.95rem; }
+
+    .profile-card {
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+    .profile-card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: radial-gradient(circle at top left, rgba(96,165,250,0.22), transparent 35%),
+                  radial-gradient(circle at bottom right, rgba(52,211,153,0.18), transparent 35%);
+      pointer-events: none;
+    }
+    .profile-inner { position: relative; }
+    .avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(96,165,250,0.9), rgba(52,211,153,0.85));
+      display: grid;
+      place-items: center;
+      color: #08111f;
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+    .profile-card h2 { margin: 0 0 8px; }
+    .profile-card p { margin: 0 0 18px; color: var(--muted); line-height: 1.65; }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .tag {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    section {
+      padding: 26px 0;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .section-title h3 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      padding: 22px;
+    }
+
+    .card h4 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+    }
+    .card p, .card li {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .card ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .project {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 220px;
+    }
+    .project .label {
+      display: inline-block;
+      margin-bottom: 12px;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .project h4 { margin-bottom: 8px; }
+
+    .contact {
+      text-align: center;
+      padding: 42px 22px;
+      margin: 18px 0 40px;
+      background: linear-gradient(135deg, rgba(96,165,250,0.12), rgba(52,211,153,0.12));
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: calc(var(--radius) + 6px);
+    }
+    .contact h3 {
+      margin: 0 0 10px;
+      font-size: 2rem;
+    }
+    .contact p {
+      margin: 0 0 20px;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 18px 0 34px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero, .grid-2, .projects { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; }
+      .section-title { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 640px) {
+      .nav { flex-direction: column; align-items: flex-start; }
+      nav ul { gap: 14px; }
+      .hero { padding-top: 56px; }
+      .hero h1 { line-height: 1.02; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo">
+        <div class="logo-badge">P</div>
+        <span>Pranab’s Portfolio</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h1>Hi, I’m Pranab.<br />I build simple, clean web experiences.</h1>
+        <p>
+          This is a mini personal website made for GitHub hosting. It works as a neat portfolio homepage,
+          introduction page, or starter project for your repository.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#projects">See Projects</a>
+          <a class="btn secondary" href="#contact">Contact Me</a>
+        </div>
+        <div class="stats">
+          <div class="stat-card">
+            <strong>3+</strong>
+            <span>Mini projects showcased</span>
+          </div>
+          <div class="stat-card">
+            <strong>1</strong>
+            <span>Responsive single-page site</span>
+          </div>
+          <div class="stat-card">
+            <strong>100%</strong>
+            <span>Easy to upload on GitHub</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card profile-card">
+        <div class="profile-inner">
+          <div class="avatar">P</div>
+          <h2>About Me</h2>
+          <p>
+            I’m a student interested in web development, UI/UX, and building practical projects.
+            This layout keeps things professional, simple, and easy to customize.
+          </p>
+          <div class="tag-row">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Responsive</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-title">
+        <h3>About</h3>
+        <p>A short intro that looks good on a GitHub Pages site.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <h4>Who I Am</h4>
+          <p>
+            I like creating user-friendly websites with a clean layout and simple structure.
+            This page is lightweight, easy to read, and good for showing your basic profile.
+          </p>
+        </div>
+        <div class="card">
+          <h4>What This Website Is</h4>
+          <p>
+            A mini personal project website with a hero section, about section, skills, projects,
+            and contact area — enough to make your repository look complete without being too large.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-title">
+        <h3>Skills</h3>
+        <p>Just enough to keep it simple and credible.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <h4>Frontend</h4>
+          <ul>
+            <li>HTML5 structure</li>
+            <li>CSS3 responsive design</li>
+            <li>Basic JavaScript interactions</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Tools</h4>
+          <ul>
+            <li>Git and GitHub</li>
+            <li>VS Code</li>
+            <li>GitHub Pages deployment</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-title">
+        <h3>Projects</h3>
+        <p>Sample cards you can replace with your real work.</p>
+      </div>
+      <div class="projects">
+        <article class="card project">
+          <div>
+            <span class="label">Project 1</span>
+            <h4>Personal Portfolio</h4>
+            <p>A simple website to introduce yourself, your skills, and your contact links.</p>
+          </div>
+        </article>
+        <article class="card project">
+          <div>
+            <span class="label">Project 2</span>
+            <h4>Student Dashboard</h4>
+            <p>A neat dashboard concept for assignments, attendance, and study progress.</p>
+          </div>
+        </article>
+        <article class="card project">
+          <div>
+            <span class="label">Project 3</span>
+            <h4>Landing Page</h4>
+            <p>A clean landing page design for a product, event, or personal brand.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact">
+        <h3>Let’s Connect</h3>
+        <p>Replace this with your email, LinkedIn, or GitHub profile link.</p>
+        <a class="btn primary" href="mailto:yourname@example.com">Email Me</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © 2026 Pranab. Built for GitHub repository upload.
+    </div>
+  </footer>
+</body>
+</html>
